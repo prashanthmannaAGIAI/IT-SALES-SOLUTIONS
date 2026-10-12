@@ -1,0 +1,206 @@
+---
+import PageFrame from "../../components/PageFrame.astro";
+---
+
+<PageFrame
+  title="Administration"
+  description="Access-controlled content and request administration for HighEnd IT Sales & Solutions."
+  eyebrow="Administration"
+  heading="Workspace administration"
+  lead="A role-protected workspace for approved staff to manage content, operational records, and access. Sign-in requires an active Cloudflare Access session and an assigned dashboard role."
+  breadcrumbs={[{ label: "Administration" }]}
+  kind="admin-page"
+>
+  <div class="admin-notice" role="note">
+    Do not export or store personal information unless data-handling and residency approvals are complete.
+  </div>
+  <p class="admin-status" data-admin-status role="status" aria-live="polite">Verifying Cloudflare Access identity and assigned role…</p>
+  <nav class="admin-hub-nav" aria-label="Administration sections" data-hub-nav hidden>
+    <a href="#overview">Overview</a><a href="#projects" data-project-link hidden>Projects &amp; proposals</a><a href="#approvals" data-admin-link hidden>Approvals</a>
+    <a href="#content-heading">Content</a><a href="#submissions-heading" data-admin-link hidden>Leads &amp; consultations</a>
+    <a href="#ai-usage-heading" data-admin-link hidden>AI operations</a><a href="#admin-settings-heading" data-admin-link hidden>Settings</a>
+  </nav>
+  <section class="admin-panel page-section" aria-labelledby="overview-heading" id="overview" data-hub-overview hidden>
+    <h2 id="overview-heading">Operational overview</h2>
+    <p class="admin-help">Current D1 counts and recorded agent usage only. No sample or projected production metrics are shown.</p>
+    <div class="admin-metrics-grid" data-overview-metrics aria-live="polite"><p>Loading operational metrics…</p></div>
+    <p class="admin-status" data-overview-status role="status" aria-live="polite"></p>
+  </section>
+  <section class="admin-panel page-section" aria-labelledby="projects-heading" id="projects" data-projects-panel hidden>
+    <h2 id="projects-heading">Projects</h2>
+    <p class="admin-help">Internal project tracking only. Archive projects instead of deleting their history.</p>
+    <form class="admin-controls" data-project-form>
+      <label>Project name<input name="name" maxlength="180" required /></label>
+      <label>Owner email (optional)<input type="email" name="ownerEmail" maxlength="254" /></label>
+      <label class="form-field-wide">Summary<textarea name="summary" maxlength="2000" rows="3"></textarea></label>
+      <button class="button button-primary" type="submit">Create project</button>
+    </form>
+    <div class="admin-controls">
+      <label>Status filter<select data-project-filter><option value="">All projects</option><option>planning</option><option>active</option><option>on_hold</option><option>completed</option><option>archived</option></select></label>
+      <button class="button button-secondary" type="button" data-project-load>Refresh projects</button>
+    </div>
+    <div class="admin-table-scroll"><table class="admin-table"><thead><tr><th>Project</th><th>Status</th><th>Owner</th><th>Summary</th><th>Updated</th><th>Actions</th></tr></thead><tbody data-project-rows><tr><td colspan="6">Loading projects…</td></tr></tbody></table></div>
+    <div class="admin-actions"><button class="button button-secondary" type="button" data-project-prev>Previous</button><span data-project-page aria-live="polite"></span><button class="button button-secondary" type="button" data-project-next>Next</button></div>
+    <p class="admin-status" data-project-status role="status" aria-live="polite"></p>
+    <hr />
+    <h3>Proposal drafts</h3>
+    <p class="admin-help">Drafts are internal and are not sent externally. Submitting a draft adds it to the administrator approval queue; approval does not send or commit to a proposal.</p>
+    <div class="admin-controls">
+      <label class="form-field-wide">Requirements for an AI-generated preliminary outline<textarea data-ai-proposal-requirements maxlength="1200" rows="3" placeholder="Describe the business need, known constraints and requested outcome."></textarea></label>
+      <button class="button button-secondary" type="button" data-ai-proposal-generate>Generate outline with HE Intelligence</button>
+    </div>
+    <p class="admin-help">Uses the configured HE Intelligence provider and its normal usage limits. Do not include confidential or personal information. Generated content is unverified and is not approved or sent externally.</p>
+    <form class="admin-controls" data-proposal-form>
+      <label>Title<input name="title" maxlength="180" required /></label>
+      <label>Related project<select name="projectId" data-project-options><option value="">No project</option></select></label>
+      <label class="form-field-wide">Draft content<textarea name="content" maxlength="16000" rows="5" required></textarea></label>
+      <label class="admin-check"><input type="checkbox" name="submit" /> Submit for internal approval</label>
+      <button class="button button-primary" type="submit">Save proposal draft</button>
+    </form>
+    <div class="admin-controls"><label>Proposal status<select data-proposal-filter><option value="">All proposals</option><option>draft</option><option>pending_approval</option><option>approved</option><option>rejected</option></select></label><button class="button button-secondary" type="button" data-proposal-load>Refresh proposals</button></div>
+    <div class="admin-table-scroll"><table class="admin-table"><thead><tr><th>Title</th><th>Status</th><th>Project</th><th>Content</th><th>Updated</th><th>Actions</th></tr></thead><tbody data-proposal-rows><tr><td colspan="6">Loading proposal drafts…</td></tr></tbody></table></div>
+    <div class="admin-actions"><button class="button button-secondary" type="button" data-proposal-prev>Previous</button><span data-proposal-page aria-live="polite"></span><button class="button button-secondary" type="button" data-proposal-next>Next</button></div>
+    <p class="admin-status" data-proposal-status role="status" aria-live="polite"></p>
+  </section>
+  <section class="admin-panel page-section" aria-labelledby="approvals-heading" id="approvals" data-approval-panel hidden>
+    <h2 id="approvals-heading">Approval queue</h2>
+    <p class="admin-help">Reviewing marks an item approved or rejected for internal workflow only. It never sends communications, executes a purchase, changes infrastructure, deletes data, or accepts contract terms.</p>
+    <div class="admin-controls"><label>Queue status<select data-approval-filter><option value="pending">Pending</option><option value="approved">Approved</option><option value="rejected">Rejected</option><option value="all">All</option></select></label><button class="button button-secondary" type="button" data-approval-load>Refresh queue</button></div>
+    <div class="admin-table-scroll"><table class="admin-table"><thead><tr><th>Submitted</th><th>Type</th><th>Summary</th><th>Requested by</th><th>Status</th><th>Decision</th></tr></thead><tbody data-approval-rows><tr><td colspan="6">Loading approval queue…</td></tr></tbody></table></div>
+    <div class="admin-actions"><button class="button button-secondary" type="button" data-approval-prev>Previous</button><span data-approval-page aria-live="polite"></span><button class="button button-secondary" type="button" data-approval-next>Next</button></div>
+    <p class="admin-status" data-approval-status role="status" aria-live="polite"></p>
+  </section>
+  <section class="admin-panel page-section" aria-labelledby="agent-config-heading" data-agent-config-panel hidden>
+    <h2 id="agent-config-heading">AI agent configuration</h2>
+    <p class="admin-help">Enable or disable model-backed specialists. The local Knowledge Agent, Responsible AI Guardrail and orchestrator remain read-only and enabled. No provider keys or prompts are shown.</p>
+    <div class="admin-table-scroll"><table class="admin-table"><thead><tr><th>Agent</th><th>Purpose</th><th>Execution</th><th>Enabled</th><th>Setting</th></tr></thead><tbody data-agent-rows><tr><td colspan="5">Loading agent configuration…</td></tr></tbody></table></div>
+    <p class="admin-status" data-agent-status role="status" aria-live="polite"></p>
+  </section>
+  <section class="admin-panel page-section" aria-labelledby="operations-heading" data-operations-panel hidden>
+    <h2 id="operations-heading">Agent errors and operational activity</h2>
+    <h3>Recorded agent failure aggregates</h3>
+    <div class="admin-table-scroll"><table class="admin-table"><thead><tr><th>Date</th><th>Agent</th><th>Invocations</th><th>Failures</th><th>Total latency (ms)</th></tr></thead><tbody data-error-rows><tr><td colspan="5">Loading failure aggregates…</td></tr></tbody></table></div>
+    <div class="admin-actions"><button class="button button-secondary" type="button" data-error-prev>Previous</button><span data-error-page aria-live="polite"></span><button class="button button-secondary" type="button" data-error-next>Next</button></div>
+    <p class="admin-status" data-error-status role="status" aria-live="polite"></p>
+    <h3>Audit activity</h3>
+    <p class="admin-help">Audit view excludes stored details and request contents to avoid exposing personal or confidential data.</p>
+    <div class="admin-table-scroll"><table class="admin-table"><thead><tr><th>Date</th><th>Actor</th><th>Role</th><th>Action</th><th>Resource</th><th>ID</th></tr></thead><tbody data-activity-rows><tr><td colspan="6">Loading activity…</td></tr></tbody></table></div>
+    <div class="admin-actions"><button class="button button-secondary" type="button" data-activity-prev>Previous</button><span data-activity-page aria-live="polite"></span><button class="button button-secondary" type="button" data-activity-next>Next</button></div>
+    <p class="admin-status" data-activity-status role="status" aria-live="polite"></p>
+  </section>
+  <section class="admin-panel page-section" aria-labelledby="admin-settings-heading" data-settings-panel hidden>
+    <h2 id="admin-settings-heading">Workspace settings</h2>
+    <form class="admin-controls" data-assistant-setting-form>
+      <label>Public HE Intelligence<select name="enabled" data-assistant-enabled><option value="true">Enabled</option><option value="false">Disabled</option></select></label>
+      <button class="button button-primary" type="submit">Save assistant setting</button>
+    </form>
+    <p class="admin-help">This switch gates assistant requests at the server. Other settings and credentials are managed through deployment environment configuration, never exposed here.</p>
+    <p class="admin-status" data-settings-status role="status" aria-live="polite"></p>
+  </section>
+  <section class="admin-panel page-section" aria-labelledby="content-heading" data-content-panel hidden>
+    <h2 id="content-heading">Content management</h2>
+    <div class="admin-controls">
+      <label>Collection
+        <select data-content-collection>
+          <option value="services">Services</option>
+          <option value="industries">Industries</option>
+          <option value="articles">Articles</option>
+          <option value="products">Products</option>
+        </select>
+      </label>
+      <label>Existing record
+        <select data-content-record><option value="">Choose a record</option></select>
+      </label>
+      <button class="button button-secondary" type="button" data-content-load>Load records</button>
+      <button class="button button-secondary" type="button" data-content-new>New record</button>
+    </div>
+    <label class="admin-editor-label" for="admin-content-json">Record JSON</label>
+    <textarea id="admin-content-json" data-content-json rows="18" spellcheck="false" aria-describedby="content-help"></textarea>
+    <p id="content-help" class="admin-help">Edit a complete record using the displayed JSON structure. Fields are validated server-side.</p>
+    <label class="admin-check"><input type="checkbox" data-content-published /> Published</label>
+    <div class="admin-actions">
+      <button class="button button-primary" type="button" data-content-save>Save record</button>
+      <button class="button button-secondary" type="button" data-content-delete>Delete record (admin only)</button>
+    </div>
+    <p class="admin-status" data-content-status role="status" aria-live="polite"></p>
+  </section>
+
+  <section class="admin-panel page-section" aria-labelledby="submissions-heading" data-submissions-panel hidden>
+    <h2 id="submissions-heading">Website requests</h2>
+    <div class="admin-controls">
+      <label>Request type
+        <select data-submission-type>
+          <option value="enquiry">Enquiries</option>
+          <option value="consultation">Consultations</option>
+        </select>
+      </label>
+      <label>Status<select data-submission-status-filter><option value="">All statuses</option></select></label>
+      <label>Search<input type="search" data-submission-search maxlength="100" /></label>
+      <button class="button button-secondary" type="button" data-submission-load>Load requests</button>
+    </div>
+    <div class="admin-actions"><button class="button button-secondary" type="button" data-submission-prev>Previous</button><span data-submission-page aria-live="polite"></span><button class="button button-secondary" type="button" data-submission-next>Next</button></div>
+    <div class="admin-table-scroll">
+      <table class="admin-table">
+        <thead><tr><th>Received</th><th>Name</th><th>Email</th><th>Request</th><th>Status</th><th>Update</th></tr></thead>
+        <tbody data-submission-rows><tr><td colspan="6">Load requests to view submissions.</td></tr></tbody>
+      </table>
+    </div>
+    <p class="admin-status" data-submission-status role="status" aria-live="polite"></p>
+  </section>
+
+  <section class="admin-panel page-section" aria-labelledby="knowledge-heading" data-knowledge-panel hidden>
+    <h2 id="knowledge-heading">HE Intelligence knowledge</h2>
+    <p class="admin-help">Only approved and active entries are available to the public assistant. Administrators alone may approve content. Saved edits from an editor require renewed admin approval.</p>
+    <div class="admin-controls">
+      <label>Knowledge entry
+        <select data-knowledge-record><option value="">Choose an entry</option></select>
+      </label>
+      <button class="button button-secondary" type="button" data-knowledge-new>New entry</button>
+    </div>
+    <label class="admin-editor-label" for="knowledge-slug">Slug</label>
+    <input id="knowledge-slug" data-knowledge-slug maxlength="120" autocomplete="off" />
+    <label class="admin-editor-label" for="knowledge-category">Category</label>
+    <input id="knowledge-category" data-knowledge-category maxlength="80" />
+    <label class="admin-editor-label" for="knowledge-title">Title</label>
+    <input id="knowledge-title" data-knowledge-title maxlength="180" />
+    <label class="admin-editor-label" for="knowledge-tags">Search tags (one per line)</label>
+    <textarea id="knowledge-tags" data-knowledge-tags rows="3" maxlength="2000"></textarea>
+    <label class="admin-editor-label" for="knowledge-content">Approved public content</label>
+    <textarea id="knowledge-content" data-knowledge-content rows="10" maxlength="12000"></textarea>
+    <label class="admin-check"><input type="checkbox" data-knowledge-approved /> Approved by administrator</label>
+    <label class="admin-check"><input type="checkbox" data-knowledge-active checked /> Active</label>
+    <div class="admin-actions">
+      <button class="button button-primary" type="button" data-knowledge-save>Save knowledge entry</button>
+      <button class="button button-secondary" type="button" data-knowledge-delete>Delete entry (admin only)</button>
+    </div>
+    <p class="admin-status" data-knowledge-status role="status" aria-live="polite"></p>
+  </section>
+
+  <section class="admin-panel page-section" aria-labelledby="ai-usage-heading" data-ai-usage-panel hidden>
+    <h2 id="ai-usage-heading">HE Intelligence usage</h2>
+    <p class="admin-help">Aggregate requests, model token counts, failures and latency only. Self-hosted inference has no per-request API price; hosting and hardware costs are not measured here.</p>
+    <button class="button button-secondary" type="button" data-ai-usage-load>Refresh usage</button>
+    <pre class="admin-usage-output" data-ai-usage-output aria-live="polite">Usage metrics are available to administrators.</pre>
+    <p class="admin-status" data-ai-usage-status role="status" aria-live="polite"></p>
+  </section>
+
+  <section class="admin-panel page-section" aria-labelledby="users-heading" data-admin-only hidden>
+    <h2 id="users-heading">Administrator access</h2>
+    <form data-user-form class="admin-controls">
+      <label>Email<input type="email" name="email" autocomplete="email" maxlength="254" required /></label>
+      <label>Role<select name="role"><option value="viewer">Viewer</option><option value="editor">Editor</option><option value="admin">Admin</option></select></label>
+      <button class="button button-primary" type="submit">Assign or update role</button>
+    </form>
+    <div class="admin-table-scroll">
+      <table class="admin-table">
+        <thead><tr><th>Email</th><th>Role</th><th>Active</th><th>Added</th><th>Access</th></tr></thead>
+        <tbody data-user-rows><tr><td colspan="5">Loading accounts…</td></tr></tbody>
+      </table>
+    </div>
+    <p class="admin-status" data-user-status role="status" aria-live="polite"></p>
+  </section>
+  <script>
+    import { attachAdminDashboard } from "../../scripts/admin-dashboard";
+    attachAdminDashboard();
+  </script>
+</PageFrame>

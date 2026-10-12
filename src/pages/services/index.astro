@@ -1,0 +1,23 @@
+---
+import PageCTA from "../../components/PageCTA.astro";
+import PageFrame from "../../components/PageFrame.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+import { services } from "../../data/services";
+---
+
+<PageFrame
+  title="Technology Services"
+  description="Explore practical AI, automation, cloud, software, data, cybersecurity, consulting and technology product services."
+  eyebrow="What we do"
+  heading="Technology that moves you forward."
+  lead="A connected set of capabilities to help make a business need clearer, choose an appropriate approach and plan a next step."
+  breadcrumbs={[{ label: "Services" }]}
+  kind="services"
+>
+  <section class="page-section" aria-label="Our technology services">
+    <div class="service-grid service-grid--catalogue">
+      {services.map((service, index) => <ServiceCard service={service} featured={index < 3} />)}
+    </div>
+  </section>
+  <PageCTA />
+</PageFrame>

@@ -1,0 +1,11 @@
+# Copy to .dev.vars for local development only. Replace every placeholder.
+# Use synthetic test data only; never use real personal information locally.
+PERSONAL_DATA_STORAGE_APPROVED="false"
+CF_ACCESS_TEAM_DOMAIN="your-team.cloudflareaccess.com"
+CF_ACCESS_AUD="configure-your-access-application-audience"
+RATE_LIMIT_HMAC_SECRET="local-only-replace-with-a-random-secret"
+OLLAMA_BASE_URL="http://127.0.0.1:11434"
+OLLAMA_MODEL="qwen3:4b"
+AI_MAX_DAILY_REQUESTS="50"
+# If your local Ollama endpoint requires authentication, set this only in your private .dev.vars file.
+OLLAMA_API_KEY=""

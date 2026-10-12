@@ -1,0 +1,24 @@
+---
+import type { Service } from "../data/services";
+import { getServicePath } from "../data/services";
+import Icon from "./Icon.astro";
+
+interface Props {
+  service: Service;
+  featured?: boolean;
+}
+
+const { service, featured = false } = Astro.props;
+---
+
+<a class:list={["service-card", featured && "service-card--featured"]} href={getServicePath(service.slug)}>
+  <span class="service-card-top">
+    <span class="service-icon"><Icon name={service.icon} size={21} /></span>
+    <span class="service-number">CAPABILITY / {service.slug.toUpperCase().replaceAll("-", " ")}</span>
+  </span>
+  <h2>{service.title}</h2>
+  <span class="service-card-description">{service.summary}</span>
+  <span class="service-card-bottom">
+    <span class="card-arrow"><Icon name="arrow" size={16} /></span>
+  </span>
+</a>

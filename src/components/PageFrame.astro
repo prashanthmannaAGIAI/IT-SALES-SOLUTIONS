@@ -1,0 +1,51 @@
+---
+import SiteFooter from "./SiteFooter.astro";
+import SiteHeader from "./SiteHeader.astro";
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  breadcrumbs?: { label: string; href?: string }[];
+  kind?: string;
+}
+
+const {
+  title,
+  description,
+  eyebrow = "HighEnd IT Sales & Solutions",
+  heading = title,
+  lead,
+  breadcrumbs = [],
+  kind = "",
+} = Astro.props;
+---
+
+<SiteLayout title={`${title} | HighEnd IT Sales & Solutions`} description={description} noIndex={kind === "admin-page"}>
+  <SiteHeader />
+  <main id="main" class:list={["interior-main", kind && `interior-main--${kind}`]}>
+    <div class="section-shell">
+      {breadcrumbs.length > 0 && (
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          {breadcrumbs.map((crumb) => (
+            <>
+              <span aria-hidden="true">/</span>
+              {crumb.href ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current="page">{crumb.label}</span>}
+            </>
+          ))}
+        </nav>
+      )}
+      <header class="page-hero">
+        <p class="eyebrow"><span class="eyebrow-mark"></span>{eyebrow}</p>
+        <h1>{heading}</h1>
+        {lead && <p class="page-hero-lead">{lead}</p>}
+      </header>
+      <slot />
+    </div>
+  </main>
+  <SiteFooter />
+</SiteLayout>

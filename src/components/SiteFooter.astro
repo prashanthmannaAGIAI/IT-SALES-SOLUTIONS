@@ -1,0 +1,33 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<footer class="site-footer">
+  <div class="footer-main section-shell">
+    <a class="brand footer-brand" href="/" aria-label="HighEnd IT Sales & Solutions home">
+      <img src="/logo.jpeg" alt="" width="48" height="48" />
+      <span class="brand-copy">
+        <span class="brand-name">HighEnd IT <span>Sales &amp; Solutions</span></span>
+        <span class="brand-tagline">WE SOLVE IT ALL</span>
+      </span>
+    </a>
+    <p class="footer-manifesto">Practical intelligence.<br />{" "}<span>Human possibility.</span></p>
+    <div class="footer-links" aria-label="Footer links">
+      <a href="/services/">Services</a>
+      <a href="/industries/">Industries</a>
+      <a href="/insights/">Insights</a>
+      <a href="/about/">About</a>
+      <a href="/contact/">Contact</a>
+      <a href="/consultation/">Consultation</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+      <a href="/cookie-preferences/">Cookie preferences</a>
+    </div>
+    <a class="footer-top" href="#top" aria-label="Back to top"><Icon name="arrowUp" size={18} /></a>
+  </div>
+  <div class="footer-bottom section-shell">
+    <span>© {new Date().getFullYear()} HighEnd IT Sales &amp; Solutions LLC</span>
+    <span>Abu Dhabi, United Arab Emirates</span>
+    <span class="footer-legal">AI for today. Ready for what’s next.</span>
+  </div>
+</footer>

@@ -1,0 +1,29 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  contactHref?: string;
+  consultationHref?: string;
+}
+
+const {
+  title = "Have a challenge in mind?",
+  description = "Tell us what you are working toward. We can help explore a practical next step.",
+  contactHref = "/contact/",
+  consultationHref = "/consultation/",
+} = Astro.props;
+---
+
+<section class="page-cta" aria-labelledby="page-cta-heading">
+  <div>
+    <p class="eyebrow"><span class="eyebrow-mark"></span> Start a conversation</p>
+    <h2 id="page-cta-heading">{title}</h2>
+    <p>{description}</p>
+  </div>
+  <div class="page-cta-actions">
+    <a class="button button-primary" href={consultationHref}>Request a consultation <Icon name="arrow" size={16} /></a>
+    <a class="text-link" href={contactHref}>Contact us <Icon name="arrow" size={15} /></a>
+  </div>
+</section>

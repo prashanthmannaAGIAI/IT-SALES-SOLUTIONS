@@ -1,0 +1,44 @@
+---
+import Icon from "../../components/Icon.astro";
+import PageCTA from "../../components/PageCTA.astro";
+import PageFrame from "../../components/PageFrame.astro";
+import { getInsightPath, insights } from "../../data/insights";
+
+export function getStaticPaths() {
+  return insights.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const otherArticles = insights.filter((item) => item.slug !== article.slug);
+---
+
+<PageFrame
+  title={article.title}
+  description={article.summary}
+  eyebrow={`Insights / ${article.category}`}
+  heading={article.title}
+  lead={article.summary}
+  breadcrumbs={[{ label: "Insights", href: "/insights/" }, { label: article.title }]}
+  kind="article"
+>
+  <article class="article-content page-section">
+    <p class="article-reading-time"><Icon name="spark" size={15} /> {article.readTime} <span>·</span> General information</p>
+    {article.sections.map((section) => (
+      <section>
+        <h2>{section.heading}</h2>
+        {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </section>
+    ))}
+    <p class="content-note">This article provides general information and perspectives, not professional advice. Evaluate technology choices in your own organizational and regulatory context.</p>
+  </article>
+  <section class="page-section related-articles">
+    <div class="section-heading"><p class="eyebrow"><span class="eyebrow-mark"></span> Keep exploring</p><h2>More <span class="text-gradient">perspectives.</span></h2></div>
+    <div class="insight-grid">
+      {otherArticles.map((item) => <a class="insight-card" href={getInsightPath(item.slug)}><span class="insight-card-top">{item.category}<span>{item.readTime}</span></span><h2>{item.title}</h2><p>{item.summary}</p><span class="text-link">Read perspective <Icon name="arrow" size={15} /></span></a>)}
+    </div>
+  </section>
+  <PageCTA />
+</PageFrame>

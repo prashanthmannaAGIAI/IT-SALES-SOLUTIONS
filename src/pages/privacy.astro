@@ -1,0 +1,26 @@
+---
+import PageCTA from "../components/PageCTA.astro";
+import PageFrame from "../components/PageFrame.astro";
+---
+
+<PageFrame
+  title="Privacy Policy"
+  description="Privacy information for the HighEnd IT Sales & Solutions website, its request forms and AI assistant."
+  eyebrow="Privacy"
+  heading="Privacy information for this website."
+  lead="This draft describes the current technical configuration. Review and approve it against the company’s actual practices and applicable requirements before production use."
+  breadcrumbs={[{ label: "Privacy" }]}
+  kind="legal"
+>
+  <article class="legal-content page-section">
+    <p class="legal-notice">Website privacy information · Review and confirm before production use.</p>
+    <section><h2>Who this notice concerns</h2><p>This website is presented for HighEnd IT Sales &amp; Solutions LLC, based in Abu Dhabi, United Arab Emirates. This page does not identify a legal privacy contact because no public contact address has been provided.</p></section>
+    <section><h2>Information entered into the current site</h2><p>Contact and consultation forms send the fields you provide to the site’s server-side API. In the current configuration, personal-data storage is disabled and the API rejects submissions without saving them. Do not enter sensitive or confidential information. If storage is enabled after the required approvals, request details will be stored in the configured Cloudflare D1 database for authorized administrators; retention and deletion practices must be approved and reflected here before that change.</p><p>Messages submitted to HighEnd Intelligence are sent to the self-hosted Ollama endpoint configured by the site operator for processing. The endpoint’s operator and hosting location depend on the deployment configuration. The website does not save conversation text in D1; it records aggregate daily request, token-count, failure and response-time metrics, and a keyed hash for rate limiting. The configured Ollama host and its infrastructure may independently process or log requests. Avoid personal, sensitive or confidential information, and confirm the endpoint’s location, access and logging practices with the operator.</p><p>The website uses the connecting IP address only to calculate an HMAC-based rate-limit key and stores the keyed hash rather than the address in the application database. Expired rate-limit records are removed during later requests, within approximately 24 hours after their rate window ends.</p></section>
+    <section><h2>Technical requests and hosting</h2><p>The public pages are hosted as static assets on Cloudflare Pages and API requests are handled by Cloudflare Pages Functions. If personal-data storage is approved and enabled, application records are stored in Cloudflare D1. D1’s documented jurisdiction options do not currently include the UAE. The company must assess provider terms, processing locations, international transfers, retention, security and applicable legal requirements before enabling storage or an AI endpoint. Cloudflare and other infrastructure providers may process technical request data under their own terms and logging practices; confirm those details with the provider and update this notice before launch.</p></section>
+    <section><h2>Cookies and browser storage</h2><p>This website does not intentionally set analytics, advertising or personalization cookies. The cookie-preferences page stores your selected preference in your browser’s local storage. Browser storage is held on your device; clearing site data in your browser removes it.</p></section>
+    <section><h2>Children, retention and your rights</h2><p>This site is intended for business audiences and is not designed to collect information from children. Submission storage is currently disabled. No automatic retention or deletion schedule for stored enquiries has been configured; storage must not be enabled until the company approves a retention period, deletion process and applicable privacy-rights response procedure.</p></section>
+    <section><h2>Changes and questions</h2><p>This notice should be reviewed if hosting, integrations, forms or data practices change. A verified public privacy contact should be added once supplied.</p></section>
+    <p class="content-note">Review your <a class="inline-link" href="/cookie-preferences/">cookie preferences</a> or read the <a class="inline-link" href="/terms/">website terms</a>.</p>
+  </article>
+  <PageCTA title="Have a question about your privacy?" description="Use the contact form to prepare an enquiry. Submission storage remains disabled pending data-handling approval." />
+</PageFrame>

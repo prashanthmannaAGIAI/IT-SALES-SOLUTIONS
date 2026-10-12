@@ -1,0 +1,68 @@
+---
+import Icon from "../components/Icon.astro";
+import PageFrame from "../components/PageFrame.astro";
+---
+
+<PageFrame
+  title="Cookie Preferences"
+  description="Review browser-local cookie preferences. This site currently uses no optional analytics or advertising cookies."
+  eyebrow="Your choices"
+  heading="Cookie preferences."
+  lead="The current website uses no analytics, advertising or personalization cookies. Essential browser functionality does not require your consent."
+  breadcrumbs={[{ label: "Cookie preferences" }]}
+  kind="legal cookie-page"
+>
+  <section class="preferences-card page-section">
+    <div class="preferences-status"><Icon name="shield" size={21} /><div><strong>No optional trackers are active.</strong><span>Your saved preference does not turn on analytics or third-party tracking.</span></div></div>
+    <form id="cookie-preferences-form">
+      <fieldset>
+        <legend>Preference categories</legend>
+        <label class="preference-row"><span><strong>Essential site functions</strong><small>Required for basic website operation. Always enabled.</small></span><input type="checkbox" checked disabled aria-label="Essential site functions always enabled" /></label>
+        <label class="preference-row"><span><strong>Optional measurement</strong><small>Remember your choice for possible future measurement tools. None are currently connected.</small></span><input id="measurement-choice" name="measurement" type="checkbox" /></label>
+      </fieldset>
+      <div class="preference-actions">
+        <button class="button button-primary" type="submit">Save preferences <Icon name="arrow" size={16} /></button>
+        <button class="button preference-reset" id="reset-preferences" type="button">Use essential only</button>
+      </div>
+      <p class="request-status" id="preference-status" role="status" aria-live="polite"></p>
+    </form>
+    <p class="content-note">Your choice is stored in this browser’s local storage, not submitted to HighEnd IT Sales &amp; Solutions. Clearing the browser’s site data removes the saved preference. Learn more in the <a class="inline-link" href="/privacy/">Privacy Policy</a>.</p>
+  </section>
+  <script>
+    const preferenceKey = "hight-end-it-cookie-preferences";
+    const form = document.querySelector<HTMLFormElement>("#cookie-preferences-form");
+    const measurement = document.querySelector<HTMLInputElement>("#measurement-choice");
+    const status = document.querySelector<HTMLElement>("#preference-status");
+    const readPreference = () => {
+      try {
+        const saved = localStorage.getItem(preferenceKey);
+        if (!saved || !measurement) return;
+        const parsed: unknown = JSON.parse(saved);
+        if (typeof parsed === "object" && parsed !== null && "measurement" in parsed) {
+          measurement.checked = parsed.measurement === true;
+        }
+      } catch {
+        if (measurement) measurement.checked = false;
+        if (status) status.textContent = "Could not read a saved preference; essential-only settings remain in effect.";
+      }
+    };
+    const savePreference = (enabled: boolean) => {
+      if (!status) return;
+      try {
+        localStorage.setItem(preferenceKey, JSON.stringify({ essential: true, measurement: enabled }));
+        status.textContent = "Preference saved on this device. No optional tracking is currently active.";
+      } catch {
+        status.textContent = "Your browser could not save this preference. No optional tracking is currently active.";
+      }
+    };
+    readPreference();
+    form?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      savePreference(measurement?.checked ?? false);
+    });
+    document.querySelector<HTMLButtonElement>("#reset-preferences")?.addEventListener("click", () => {
+      if (measurement) measurement.checked = false;
+      savePreference(false);
+    });
+  </script>
+</PageFrame>

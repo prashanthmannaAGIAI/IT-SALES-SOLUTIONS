@@ -1,0 +1,37 @@
+---
+import PageCTA from "../components/PageCTA.astro";
+import PageFrame from "../components/PageFrame.astro";
+import Icon from "../components/Icon.astro";
+---
+
+<PageFrame
+  title="About HighEnd IT"
+  description="Learn about HighEnd IT Sales & Solutions LLC, an Abu Dhabi-based technology company focused on practical AI, cloud, software and IT solutions."
+  eyebrow="About HighEnd IT"
+  heading="Technology should make the next step clearer."
+  lead="HighEnd IT Sales & Solutions LLC is based in Abu Dhabi, UAE. We help organizations explore and deliver practical technology solutions for the needs they have today and the changes ahead."
+  breadcrumbs={[{ label: "About" }]}
+  kind="about"
+>
+  <section class="about-statement page-section">
+    <div class="about-sigil"><Icon name="atom" size={37} /><span>WE SOLVE IT ALL</span></div>
+    <div>
+      <p class="eyebrow"><span class="eyebrow-mark"></span> Our perspective</p>
+      <h2>Practical innovation.<br /><span class="text-gradient">Human-led by design.</span></h2>
+      <p>Our work spans applied AI, intelligent automation, cloud, software, data, cybersecurity, consulting and technology products. Each conversation starts with the organization’s context—not an assumption that one tool fits every problem.</p>
+      <p>We focus on what technology can usefully do now while staying thoughtful about what may be possible later. Our interest in AGI readiness is exploratory; it is not a claim that HighEnd IT has achieved AGI or currently offers AGI.</p>
+    </div>
+  </section>
+  <section class="page-section">
+    <div class="section-heading">
+      <p class="eyebrow"><span class="eyebrow-mark"></span> How we think</p>
+      <h2>Clear principles for <span class="text-gradient">changing technology.</span></h2>
+    </div>
+    <div class="trust-grid about-principles">
+      <article class="trust-item"><span class="trust-icon"><Icon name="spark" size={20} /></span><h3>Start with purpose</h3><p>Connect technology choices to an understandable need and an outcome that can be assessed.</p></article>
+      <article class="trust-item"><span class="trust-icon"><Icon name="lock" size={20} /></span><h3>Design with care</h3><p>Include security, privacy, accessibility and human responsibilities in the discussion.</p></article>
+      <article class="trust-item"><span class="trust-icon"><Icon name="brain" size={20} /></span><h3>Stay honest about AI</h3><p>Distinguish available capabilities from emerging research and avoid promising what has not been demonstrated.</p></article>
+    </div>
+  </section>
+  <PageCTA title="Let’s understand what matters to you." />
+</PageFrame>

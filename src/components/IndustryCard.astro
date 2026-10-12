@@ -1,0 +1,27 @@
+---
+import type { Industry } from "../data/industries";
+import { getIndustryCategoryName, getIndustryPath } from "../data/industries";
+import Icon from "./Icon.astro";
+
+interface Props {
+  industry: Industry;
+  showCategory?: boolean;
+}
+
+const { industry, showCategory = false } = Astro.props;
+---
+
+<a
+  class="industry-item"
+  href={getIndustryPath(industry.slug)}
+  data-industry-card
+  data-category={industry.category}
+  data-search={`${industry.name} ${industry.summary} ${industry.keywords.join(" ")}`}
+>
+  <span class="industry-item-icon"><Icon name={industry.icon} size={19} /></span>
+  <span class="industry-item-copy">
+    <span>{industry.name}</span>
+    {showCategory && <small>{getIndustryCategoryName(industry.category)}</small>}
+  </span>
+  <span class="industry-arrow"><Icon name="arrow" size={15} /></span>
+</a>

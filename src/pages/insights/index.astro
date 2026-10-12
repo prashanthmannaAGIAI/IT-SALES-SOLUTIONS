@@ -1,0 +1,31 @@
+---
+import PageCTA from "../../components/PageCTA.astro";
+import PageFrame from "../../components/PageFrame.astro";
+import Icon from "../../components/Icon.astro";
+import { getInsightPath, insights } from "../../data/insights";
+---
+
+<PageFrame
+  title="Insights & Articles"
+  description="Practical perspectives on applied AI, enterprise knowledge assistants, responsible innovation and technology readiness."
+  eyebrow="Ideas for what’s next"
+  heading="Thoughtful technology starts with better questions."
+  lead="Perspectives on practical AI and technology—focused on useful questions, clear limits and choices organizations can examine for themselves."
+  breadcrumbs={[{ label: "Insights" }]}
+  kind="insights"
+>
+  <section class="page-section">
+    <div class="insight-grid">
+      {insights.map((article, index) => (
+        <a class:list={["insight-card", index === 0 && "insight-card--featured"]} href={getInsightPath(article.slug)}>
+          <span class="insight-card-top"><span class="eyebrow-mark"></span>{article.category}<span>{article.readTime}</span></span>
+          <h2>{article.title}</h2>
+          <p>{article.summary}</p>
+          <span class="text-link">Read perspective <Icon name="arrow" size={15} /></span>
+        </a>
+      ))}
+    </div>
+    <p class="content-note">These articles express general perspectives, not legal, financial, clinical, security-assurance or other professional advice.</p>
+  </section>
+  <PageCTA title="Have a question these articles raise?" />
+</PageFrame>

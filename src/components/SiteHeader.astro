@@ -1,0 +1,65 @@
+---
+import { services, getServicePath } from "../data/services";
+import Icon from "./Icon.astro";
+---
+
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header" id="top">
+  <div class="header-inner">
+    <a class="brand" href="/" aria-label="HighEnd IT Sales & Solutions home">
+      <img src="/logo.jpeg" alt="" width="46" height="46" />
+      <span class="brand-copy">
+        <span class="brand-name">HighEnd IT <span>Sales &amp; Solutions</span></span>
+        <span class="brand-tagline">WE SOLVE IT ALL</span>
+      </span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open navigation menu">
+      <Icon name="menu" size={22} class="menu-open-icon" />
+      <Icon name="close" size={22} class="menu-close-icon" />
+    </button>
+    <nav class="primary-navigation" id="primary-navigation" aria-label="Main navigation">
+      <details class="nav-dropdown">
+        <summary aria-current={Astro.url.pathname.startsWith("/services/") ? "page" : undefined}>Services <Icon name="arrow" size={12} /></summary>
+        <div class="nav-dropdown-panel">
+          <a class="nav-dropdown-overview" href="/services/">All services <Icon name="arrow" size={14} /></a>
+          {services.map((service) => <a href={getServicePath(service.slug)}>{service.shortTitle}</a>)}
+        </div>
+      </details>
+      <a href="/industries/" aria-current={Astro.url.pathname.startsWith("/industries/") ? "page" : undefined}>Industries</a>
+      <a href={getServicePath("ai-agents")} aria-current={Astro.url.pathname === getServicePath("ai-agents") ? "page" : undefined}>AI agents</a>
+      <a href={getServicePath("technology-products")} aria-current={Astro.url.pathname === getServicePath("technology-products") ? "page" : undefined}>Products</a>
+      <a href="/insights/" aria-current={Astro.url.pathname.startsWith("/insights/") ? "page" : undefined}>Insights</a>
+      <a href="/about/" aria-current={Astro.url.pathname === "/about/" ? "page" : undefined}>About</a>
+      <a href="/contact/" aria-current={Astro.url.pathname === "/contact/" ? "page" : undefined}>Contact</a>
+      <a class="nav-contact" href="/consultation/">Book a consultation <Icon name="arrow" size={15} /></a>
+    </nav>
+  </div>
+</header>
+<script>
+  const menuToggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
+  const navigation = document.querySelector<HTMLElement>(".primary-navigation");
+
+  menuToggle?.addEventListener("click", () => {
+    const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+    menuToggle.setAttribute("aria-expanded", String(!isOpen));
+    menuToggle.setAttribute("aria-label", isOpen ? "Open navigation menu" : "Close navigation menu");
+    navigation?.classList.toggle("is-open", !isOpen);
+  });
+
+  navigation?.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      menuToggle?.setAttribute("aria-expanded", "false");
+      menuToggle?.setAttribute("aria-label", "Open navigation menu");
+      navigation?.classList.remove("is-open");
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && menuToggle?.getAttribute("aria-expanded") === "true") {
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open navigation menu");
+      navigation?.classList.remove("is-open");
+      menuToggle.focus();
+    }
+  });
+</script>

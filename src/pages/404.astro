@@ -1,0 +1,20 @@
+---
+import PageCTA from "../components/PageCTA.astro";
+import PageFrame from "../components/PageFrame.astro";
+---
+
+<PageFrame
+  title="Page Not Found"
+  description="The page you requested could not be found. Return to the homepage or explore HighEnd IT Sales & Solutions services."
+  eyebrow="404 · Page not found"
+  heading="This page is off the map."
+  lead="The address may have changed or the page may not exist. You can return home or explore our services and industries."
+  kind="not-found"
+>
+  <section class="not-found-actions page-section">
+    <a class="button button-primary" href="/">Return home</a>
+    <a class="button preference-reset" href="/services/">Explore services</a>
+    <a class="text-link" href="/industries/">Explore industries</a>
+  </section>
+  <PageCTA title="Looking for something specific?" description="Explore the site navigation or prepare an enquiry with the page you need." />
+</PageFrame>

@@ -1,0 +1,78 @@
+---
+import IndustryCard from "../../components/IndustryCard.astro";
+import Icon from "../../components/Icon.astro";
+import PageCTA from "../../components/PageCTA.astro";
+import PageFrame from "../../components/PageFrame.astro";
+import { industries, industryCategories } from "../../data/industries";
+---
+
+<PageFrame
+  title="Industry Explorer"
+  description={`Search ${industries.length} industries and explore practical AI, automation, cloud, data and software considerations for each.`}
+  eyebrow="Across industries"
+  heading="Start with your industry."
+  lead={`Explore ${industries.length} industry guides. Search by sector or capability, filter by category, and review practical opportunities, integrations and safeguards tailored to each context.`}
+  breadcrumbs={[{ label: "Industries" }]}
+  kind="industries"
+>
+  <section class="page-section" aria-label="Industry explorer">
+    <div class="industry-explorer">
+    <div class="industry-filter-bar" role="search" aria-label="Filter industry directory">
+      <label class="industry-search">
+        <Icon name="spark" size={18} />
+        <span class="sr-only">Search industries</span>
+        <input id="industry-search" type="search" placeholder="Search industries, needs or systems…" autocomplete="off" aria-controls="industry-results" />
+      </label>
+      <label class="industry-category-filter">
+        <span class="sr-only">Filter by category</span>
+        <select id="industry-category" aria-controls="industry-results">
+          <option value="">All categories</option>
+          {industryCategories.map((category) => <option value={category.slug}>{category.name}</option>)}
+        </select>
+      </label>
+      <button class="button industry-reset" id="industry-reset" type="button">Reset</button>
+    </div>
+    <p class="industry-results-count" id="industry-results-count" role="status" aria-live="polite">{industries.length} industries</p>
+    <div class="industry-list industry-list--catalogue industry-results" id="industry-results">
+      {industries.map((industry) => <IndustryCard industry={industry} showCategory />)}
+    </div>
+    <p class="industry-empty-state" id="industry-empty-state" hidden>No industries match those filters. Try a broader search or reset your filters.</p>
+    <p class="content-note">These sector pages offer general technology considerations, not regulated, clinical, legal or financial advice. Any example use case is illustrative.</p>
+    </div>
+  </section>
+  <PageCTA title="Every organization has its own context." description="Start a conversation about your environment, constraints and intended outcomes." />
+  <script>
+    const search = document.querySelector<HTMLInputElement>("#industry-search");
+    const category = document.querySelector<HTMLSelectElement>("#industry-category");
+    const reset = document.querySelector<HTMLButtonElement>("#industry-reset");
+    const cards = [...document.querySelectorAll<HTMLElement>("[data-industry-card]")];
+    const count = document.querySelector<HTMLElement>("#industry-results-count");
+    const empty = document.querySelector<HTMLElement>("#industry-empty-state");
+
+    const filterIndustries = () => {
+    const query = search?.value.trim().toLocaleLowerCase() ?? "";
+    const selectedCategory = category?.value ?? "";
+    let visible = 0;
+
+    cards.forEach((card) => {
+      const matchesText = (card.dataset.search ?? "").toLocaleLowerCase().includes(query);
+      const matchesCategory = !selectedCategory || card.dataset.category === selectedCategory;
+      const show = matchesText && matchesCategory;
+      card.hidden = !show;
+      if (show) visible++;
+    });
+
+    if (count) count.textContent = `${visible} ${visible === 1 ? "industry" : "industries"}`;
+    if (empty) empty.hidden = visible > 0;
+    };
+
+    search?.addEventListener("input", filterIndustries);
+    category?.addEventListener("change", filterIndustries);
+    reset?.addEventListener("click", () => {
+    if (search) search.value = "";
+    if (category) category.value = "";
+    filterIndustries();
+    search?.focus();
+    });
+  </script>
+</PageFrame>

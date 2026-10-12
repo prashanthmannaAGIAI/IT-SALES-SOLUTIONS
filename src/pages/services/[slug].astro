@@ -1,0 +1,71 @@
+---
+import Icon from "../../components/Icon.astro";
+import PageCTA from "../../components/PageCTA.astro";
+import PageFrame from "../../components/PageFrame.astro";
+import { services } from "../../data/services";
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+---
+
+<PageFrame
+  title={service.title}
+  description={service.summary}
+  eyebrow={`Services / ${service.shortTitle}`}
+  heading={service.title}
+  lead={service.summary}
+  breadcrumbs={[{ label: "Services", href: "/services/" }, { label: service.shortTitle }]}
+  kind="service-detail"
+>
+  <section class="detail-intro page-section">
+    <span class="detail-icon"><Icon name={service.icon} size={28} /></span>
+    <div>
+      <p class="eyebrow"><span class="eyebrow-mark"></span> A practical starting point</p>
+      <h2>Useful technology begins with <span class="text-gradient">understanding the need.</span></h2>
+      <p>{service.introduction}</p>
+    </div>
+  </section>
+
+  <section class="detail-columns page-section">
+    <div class="detail-panel">
+      <p class="eyebrow"><span class="eyebrow-mark"></span> What to work toward</p>
+      <h2>Designed around your outcomes.</h2>
+      <ul class="check-list">
+        {service.outcomes.map((outcome) => <li><Icon name="arrow" size={15} />{outcome}</li>)}
+      </ul>
+    </div>
+    <div class="detail-panel detail-panel--accent">
+      <p class="eyebrow"><span class="eyebrow-mark"></span> Areas to explore</p>
+      <h2>Capabilities to consider.</h2>
+      <ul class="plain-list">{service.capabilities.map((capability) => <li>{capability}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="section-heading">
+      <p class="eyebrow"><span class="eyebrow-mark"></span> A considered approach</p>
+      <h2>Move forward, <span class="text-gradient">one clear step at a time.</span></h2>
+    </div>
+    <div class="process-grid">
+      {service.approach.map((step, index) => (
+        <article class="process-card">
+          <span class="process-number">0{index + 1}</span>
+          <h3>{step.title}</h3>
+          <p>{step.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <aside class="example-note">
+    <Icon name="spark" size={20} />
+    <div><strong>Illustrative use case — not a delivered project</strong><p>{service.example}</p></div>
+  </aside>
+  <PageCTA title={`Explore ${service.shortTitle} for your needs.`} />
+</PageFrame>

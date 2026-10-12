@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "highend-it-sales-solutions",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-10-12",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "highend-content",
+      "database_id": "replace-after-wrangler-d1-create",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    "PERSONAL_DATA_STORAGE_APPROVED": "false",
+    "CF_ACCESS_TEAM_DOMAIN": "",
+    "CF_ACCESS_AUD": "",
+    "OLLAMA_BASE_URL": "",
+    "OLLAMA_MODEL": "",
+    "AI_MAX_DAILY_REQUESTS": "50"
+  }
+}

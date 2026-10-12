@@ -1,0 +1,47 @@
+---
+import Icon from "../components/Icon.astro";
+import PageFrame from "../components/PageFrame.astro";
+---
+
+<PageFrame
+  title="Consultation Booking"
+  description="Request a consultation with HighEnd IT Sales & Solutions."
+  eyebrow="Consultation"
+  heading="Let’s find a useful time to talk."
+  lead="Tell us what you would like to discuss and suggest a time window. A request is not an appointment confirmation."
+  breadcrumbs={[{ label: "Consultation" }]}
+  kind="consultation-page"
+>
+  <section class="contact-layout page-section">
+    <form class="request-form" data-request-form data-endpoint="/api/consultations" data-request-type="Consultation request">
+      <input name="industry" type="hidden" data-industry-interest />
+      <div class="form-heading"><Icon name="message" size={21} /><div><h2>Request a consultation</h2><p>Suggest a date or time window; no calendar connection is active.</p></div></div>
+      <div class="form-grid">
+        <label>Your name<input name="name" type="text" autocomplete="name" maxlength="120" required /><span data-field-errors aria-live="polite"></span></label>
+        <label>Work email<input name="email" type="email" autocomplete="email" maxlength="254" required /><span data-field-errors aria-live="polite"></span></label>
+        <label>Organization <span class="optional-label">Optional</span><input name="organization" type="text" autocomplete="organization" maxlength="160" /><span data-field-errors aria-live="polite"></span></label>
+        <label>Preferred time zone<input name="timezone" type="text" placeholder="For example, Gulf Standard Time" maxlength="100" required /><span data-field-errors aria-live="polite"></span></label>
+        <label>Preferred date or time window<input name="preferredTime" type="text" placeholder="For example, weekday mornings" maxlength="180" required /><span data-field-errors aria-live="polite"></span></label>
+        <label>Topic<select name="topic" required><option value="" selected disabled>Select a topic</option><option>AI and automation</option><option>Cloud and DevOps</option><option>Software and applications</option><option>Data and analytics</option><option>Cybersecurity and IT consulting</option><option>Products and technology</option><option>Other technology discussion</option></select><span data-field-errors aria-live="polite"></span></label>
+        <label class="form-field-wide">A little context <span class="optional-label">Optional</span><textarea name="context" rows="4" maxlength="3000"></textarea><span data-field-errors aria-live="polite"></span></label>
+        <label class="form-consent form-field-wide"><input name="consent" type="checkbox" value="I understand this information is submitted to HighEnd IT Sales &amp; Solutions." required /><span>I understand this information will be submitted to HighEnd IT Sales &amp; Solutions if the service is enabled.</span><span data-field-errors aria-live="polite"></span></label>
+        <label class="form-honeypot" aria-hidden="true">Leave this field empty<input name="companyWebsite" tabindex="-1" autocomplete="off" /></label>
+      </div>
+      <button class="button button-primary" type="submit">Submit consultation request <Icon name="arrow" size={16} /></button>
+      <p class="request-status" data-request-status role="status" aria-live="polite"></p>
+      <p class="form-footnote">Online submissions remain disabled until data-residency and handling approvals are complete. Do not include sensitive information.</p>
+    </form>
+    <aside class="contact-aside">
+      <p class="eyebrow"><span class="eyebrow-mark"></span> Request, not confirmation</p>
+      <h2>Your time matters.<br /><span class="text-gradient">So does clarity.</span></h2>
+      <p>Your request does not reserve a time. HighEnd IT Sales &amp; Solutions will need to confirm a time after receiving an enabled request.</p>
+      <div class="contact-aside-line"><Icon name="globe" size={18} /><span>Include the time zone so a suitable time can be discussed.</span></div>
+      <div class="contact-aside-line"><Icon name="lock" size={18} /><span>Avoid including confidential or sensitive information in the request.</span></div>
+      <a class="text-link" href="/contact/">Prepare a general enquiry <Icon name="arrow" size={15} /></a>
+    </aside>
+  </section>
+  <script>
+    import { attachRequestForms } from "../scripts/request-form";
+    attachRequestForms();
+  </script>
+</PageFrame>

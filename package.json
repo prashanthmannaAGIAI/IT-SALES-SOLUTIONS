@@ -1,0 +1,35 @@
+{
+  "name": "he-it-sales-solutions",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "npm run build && wrangler pages dev dist",
+    "check": "astro check",
+    "lint": "eslint .",
+    "test": "tsx --test tests/*.test.ts",
+    "db:migrate:local": "wrangler d1 migrations apply highend-content --local",
+    "db:migrate:remote": "wrangler d1 migrations apply highend-content --remote",
+    "db:seed:local": "tsx scripts/seed-content.ts --local",
+    "db:seed:remote": "tsx scripts/seed-content.ts --remote",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name highend-it-sales-solutions"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "astro": "^7.3.8",
+    "jose": "^6.2.12",
+    "typescript": "^5.8.3",
+    "zod": "^4.6.6"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261012.1",
+    "@types/node": "^24.19.2",
+    "@typescript-eslint/parser": "8.61.0",
+    "eslint": "10.0.0",
+    "eslint-plugin-astro": "3.1.0",
+    "tsx": "^4.23.15",
+    "wrangler": "^4.149.0"
+  }
+}

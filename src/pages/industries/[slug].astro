@@ -1,0 +1,131 @@
+---
+import Icon from "../../components/Icon.astro";
+import IndustryCard from "../../components/IndustryCard.astro";
+import PageCTA from "../../components/PageCTA.astro";
+import PageFrame from "../../components/PageFrame.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+import { getIndustryCategoryName, industries } from "../../data/industries";
+import { services } from "../../data/services";
+
+export function getStaticPaths() {
+  return industries.map((industry) => ({
+    params: { slug: industry.slug },
+    props: { industry },
+  }));
+}
+
+const { industry } = Astro.props;
+const relatedServices = industry.services
+  .map((slug) => services.find((service) => service.slug === slug))
+  .filter((service) => service !== undefined);
+const relatedIndustries = industries
+  .filter((item) => item.slug !== industry.slug && item.category === industry.category)
+  .slice(0, 3);
+const industryQuery = `?industry=${encodeURIComponent(industry.name)}`;
+---
+
+<PageFrame
+  title={industry.name}
+  description={`${industry.summary} Explore common challenges, practical AI opportunities, example workflows, recommended services, integration considerations and safeguards.`}
+  eyebrow={`Industries / ${industry.name}`}
+  heading={industry.name}
+  lead={industry.summary}
+  breadcrumbs={[{ label: "Industries", href: "/industries/" }, { label: industry.name }]}
+  kind="industry-detail"
+>
+  <section class="detail-intro page-section">
+    <span class="detail-icon"><Icon name={industry.icon} size={28} /></span>
+    <div>
+      <p class="eyebrow"><span class="eyebrow-mark"></span> {getIndustryCategoryName(industry.category)}</p>
+      <h2>Understand the environment <span class="text-gradient">before the technology.</span></h2>
+      <p>{industry.introduction}</p>
+    </div>
+  </section>
+
+  <section class="industry-detail-grid page-section" aria-label="Industry challenges and opportunities">
+    <article class="industry-detail-panel">
+      <p class="eyebrow"><span class="eyebrow-mark"></span> Common challenges</p>
+      <h2>Where complexity shows up.</h2>
+      <ul class="check-list">
+        {industry.challenges.map((item) => <li><Icon name="arrow" size={15} />{item}</li>)}
+      </ul>
+    </article>
+    <article class="industry-detail-panel industry-detail-panel--accent">
+      <p class="eyebrow"><span class="eyebrow-mark"></span> AI & automation opportunities</p>
+      <h2>Places to explore practical support.</h2>
+      <ul class="check-list">
+        {industry.opportunities.map((item) => <li><Icon name="arrow" size={15} />{item}</li>)}
+      </ul>
+    </article>
+  </section>
+
+  <section class="industry-workflows page-section">
+    <div class="section-heading">
+      <p class="eyebrow"><span class="eyebrow-mark"></span> Example AI agents & workflows</p>
+      <h2>Useful assistance, <span class="text-gradient">with boundaries.</span></h2>
+      <p>These are illustrative workflow patterns, not deployed systems or promised results. Each requires a scoped purpose, approved sources and human oversight.</p>
+    </div>
+    <div class="industry-workflow-list">
+      {industry.agents.map((agent, index) => (
+        <article class="industry-workflow">
+          <span class="service-number">PATTERN / 0{index + 1}</span>
+          <span class="detail-icon"><Icon name={index === 1 ? "network" : "brain"} size={22} /></span>
+          <h3>{agent}</h3>
+          <a class="text-link" href={`/consultation/${industryQuery}`}>Discuss this workflow <Icon name="arrow" size={14} /></a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="section-heading">
+      <p class="eyebrow"><span class="eyebrow-mark"></span> Cloud, data & software</p>
+      <h2>Capabilities to <span class="text-gradient">consider.</span></h2>
+      <p>Recommendations are starting points; fit depends on existing architecture, requirements, budget and specialist review.</p>
+    </div>
+    <div class="service-grid service-grid--catalogue industry-service-grid">
+      {relatedServices.map((service) => <ServiceCard service={service} />)}
+    </div>
+  </section>
+
+  <section class="industry-integration-grid page-section">
+    <article class="industry-detail-panel">
+      <p class="eyebrow"><span class="eyebrow-mark"></span> Integration requirements</p>
+      <h2>Plan the connections.</h2>
+      <p class="industry-panel-lead">Confirm data owners, permissions, APIs, operating boundaries and failure handling before connecting any system.</p>
+      <ul class="check-list">
+        {industry.integrations.map((item) => <li><Icon name="arrow" size={15} />{item}</li>)}
+      </ul>
+    </article>
+    <article class="industry-detail-panel industry-detail-panel--safeguards">
+      <p class="eyebrow"><span class="eyebrow-mark"></span> Privacy, safety & compliance</p>
+      <h2>Make safeguards part of the design.</h2>
+      <ul class="check-list">
+        {industry.safeguards.map((item) => <li><Icon name="shield" size={15} />{item}</li>)}
+      </ul>
+    </article>
+  </section>
+
+  <aside class="example-note example-note--panel page-section">
+    <Icon name="spark" size={20} />
+    <div><strong>Illustrative capability — not a delivered project</strong><p>{industry.example}</p></div>
+  </aside>
+
+  {relatedIndustries.length > 0 && <section class="page-section">
+    <div class="section-heading">
+      <p class="eyebrow"><span class="eyebrow-mark"></span> Related sectors</p>
+      <h2>Explore a connected <span class="text-gradient">perspective.</span></h2>
+    </div>
+    <div class="industry-list industry-list--related">
+      {relatedIndustries.map((item) => <IndustryCard industry={item} showCategory />)}
+    </div>
+    <a class="text-link industry-all-link" href="/industries/">Browse all industries <Icon name="arrow" size={15} /></a>
+  </section>}
+
+  <PageCTA
+    title={`Discuss technology for ${industry.name.toLowerCase()}.`}
+    description="Share your context and questions. We can explore relevant options without assuming a particular solution."
+    contactHref={`/contact/${industryQuery}`}
+    consultationHref={`/consultation/${industryQuery}`}
+  />
+</PageFrame>
