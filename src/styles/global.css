@@ -7,8 +7,8 @@
   --navy-900: #070b16;
   --navy-850: #0b1221;
   --navy-800: #101a2e;
-  --blue: #4169ff;
-  --cyan: #58dcff;
+  --blue: #1769ff;
+  --cyan: #31d4ff;
   --line: rgba(133, 161, 214, 0.16);
   --line-strong: rgba(91, 132, 255, 0.34);
   --container: 1240px;
@@ -80,10 +80,10 @@ button { color: inherit; }
   margin: 0 auto;
 }
 .brand { display: inline-flex; min-width: 220px; align-items: center; gap: 10px; }
-.brand img { width: 44px; height: 44px; flex: 0 0 auto; border: 1px solid rgba(85, 205, 255, 0.35); border-radius: 50%; object-fit: cover; object-position: 50% 37%; }
+.brand img { width: 54px; height: 54px; flex: 0 0 auto; border: 1px solid rgba(49, 212, 255, 0.78); border-radius: 50%; background: #030b1c; box-shadow: 0 0 0 3px rgba(23, 105, 255, 0.16), 0 0 22px rgba(23, 105, 255, 0.35); object-fit: cover; object-position: 50% 37%; }
 .brand-copy { display: grid; gap: 3px; }
-.brand-name { color: #eaf4ff; font-size: 12px; font-weight: 700; letter-spacing: -0.015em; }
-.brand-name span { color: #a9bbd0; font-weight: 500; }
+.brand-name { color: #f1f6ff; font-size: 12px; font-weight: 700; letter-spacing: -0.015em; }
+.brand-name span { color: #b8cae7; font-weight: 500; }
 .brand-tagline { color: var(--cyan); font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.2em; }
 .primary-navigation { display: flex; align-items: center; gap: clamp(15px, 2.05vw, 29px); }
 .primary-navigation > a:not(.nav-contact) { position: relative; padding: 8px 0; color: #adbdce; font-size: 11px; transition: color 180ms ease; }
@@ -361,7 +361,7 @@ summary:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
 @media (max-width: 1020px) {
   .header-inner { width: min(calc(100% - 44px), var(--container)); }
   .brand { min-width: 190px; }
-  .brand img { width: 40px; height: 40px; }
+  .brand img { width: 48px; height: 48px; }
   .primary-navigation { gap: 15px; }
   .primary-navigation > a:not(.nav-contact) { font-size: 10px; }
   .nav-contact { min-height: 34px; padding: 0 10px; font-size: 9px; }
@@ -382,7 +382,7 @@ summary:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
   .site-header { height: 68px; }
   .header-inner { width: calc(100% - 36px); }
   .brand { min-width: 0; }
-  .brand img { width: 39px; height: 39px; }
+  .brand img { width: 46px; height: 46px; }
   .brand-name { font-size: 11px; }
   .brand-tagline { font-size: 7px; }
   .menu-toggle { display: grid; width: 40px; height: 40px; place-items: center; border: 1px solid rgba(77, 165, 222, 0.28); background: rgba(10, 34, 57, 0.68); color: var(--cyan); cursor: pointer; }
