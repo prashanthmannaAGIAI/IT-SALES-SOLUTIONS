@@ -21,14 +21,14 @@ The public request APIs are intentionally closed while `PERSONAL_DATA_STORAGE_AP
 
 ## Cloudflare setup and deployment
 
-1. Create a Cloudflare Pages project named `highend-it-sales-solutions` and connect the repository or use `npm run deploy`.
-2. Create D1 only after an approved data-residency decision. D1 currently offers EU, FedRAMP and US jurisdiction choices, not UAE. Do not store real enquiries or consultation details in D1 unless the organization has reviewed and approved the applicable residency, privacy, legal and contractual requirements.
-3. Create the database, for example with `npx wrangler d1 create highend-content`. Copy the returned database ID into `wrangler.jsonc`; do not commit account credentials or secrets.
-4. Apply migrations with `npm run db:migrate:remote`. In PowerShell, publish the supplied service, industry and article content with `$env:CONFIRM_REMOTE_SEED = "yes"; npm run db:seed:remote`. Remote seeding is deliberately gated.
+1. The `highend-it-sales-solutions` Pages project is provisioned. Deploy the built site and Functions with `npm run deploy`. The project currently uses direct Wrangler deployments; connect the GitHub repository through Cloudflare Pages settings if automatic deployment on pushes is desired.
+2. The `highend-content` D1 database is provisioned in APAC and its ID is configured in `wrangler.jsonc`. Its tables are migrated and seeded with the site's published services, industries, articles and approved public assistant knowledge. These records are public site content, not visitor submissions.
+3. D1 does not provide a UAE jurisdiction option. Do not store real enquiries or consultation details in D1 unless the organization has reviewed and approved the applicable residency, privacy, legal and contractual requirements.
+4. For a new environment, create the database with `npx wrangler d1 create highend-content`, configure the returned ID in `wrangler.jsonc`, apply migrations with `npm run db:migrate:remote`, then seed approved public content with `$env:CONFIRM_REMOTE_SEED = "yes"; npm run db:seed:remote`. Remote seeding is deliberately gated.
 5. Configure `CF_ACCESS_TEAM_DOMAIN` and `CF_ACCESS_AUD` for the Cloudflare Access application in the Pages Functions production environment. Configure an Access policy that requires the organization's chosen identity provider for `/admin/*` and `/api/admin/*`. The API independently validates the Access JWT and checks the active D1 role.
 6. Add a strong secret with `npx wrangler pages secret put RATE_LIMIT_HMAC_SECRET --project-name highend-it-sales-solutions`. The value must be at least 32 characters. Never put it in frontend code, `wrangler.jsonc`, or a committed environment file.
 7. Keep `PERSONAL_DATA_STORAGE_APPROVED=false` until data storage and retention are approved. Only then may the owner deliberately change that production variable to `true`.
-8. Deploy with `npm run deploy`. Cloudflare account access, project setup, D1 creation and secret provisioning require a human with appropriate account permissions. Cloudflare usage may exceed free-plan quotas; verify current plan limits and pricing before launch.
+8. Cloudflare account access, project setup, D1 creation, GitHub integration and secret provisioning require a human with appropriate account permissions. Cloudflare usage may exceed free-plan quotas; verify current plan limits and pricing before launch.
 
 ## HE Intelligence and Ollama
 
