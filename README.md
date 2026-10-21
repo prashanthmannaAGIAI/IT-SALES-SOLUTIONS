@@ -37,7 +37,7 @@ The assistant's modular Phase 6 workflow uses deterministic local routing, appro
 - `src/pages/` contains the static page routes, including dynamic service, industry and insight pages.
 - `src/data/services.ts`, `src/data/industries.ts` and `src/data/insights.ts` are the structured, checked-in content snapshots used to generate public pages.
 - `src/components/` and `src/layouts/` contain shared navigation, page framing, calls to action and visual components.
-- `public/logo.jpeg` is the supplied brand artwork.
+- `public/highend-it-sales-solution-logo.png` is the site brand artwork used in the header, footer, assistant and favicon.
 
 Industry detail pages are built from the reusable sector definitions and category profiles in `src/data/industries.ts`. The D1 content API and Access-protected administration dashboard provide storage and management for services, industries, articles and products. Public pages are generated from the checked-in content snapshots at build time; editing a D1 record does not rebuild an already deployed public page. Use the D1 management APIs/dashboard for backend content operations and update the source records before a deploy when the public page output needs to change.
 
